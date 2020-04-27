@@ -23,13 +23,6 @@ import javax.annotation.Resource;
 @Configuration
 public class AuthConfig implements WebMvcConfigurer {
 
-@Resource
-private AuthInterceptor authInterceptor;
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        //addpathpattern需要拦截
-        registry.addInterceptor(authInterceptor).addPathPatterns("/api/**").excludePathPatterns("/api/sysAdmin/login");
-    }
 
 }

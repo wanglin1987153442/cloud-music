@@ -3,7 +3,7 @@
 <mapper namespace="com.soft1851.music.admin.mapper.RoleAdminMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.soft1851.music.admin.entity.RoleAdmin">
+    <resultMap id="BaseResultMap" type="com.soft1851.music.admin.domain.entity.RoleAdmin">
         <id column="id" property="id" />
         <result column="admin_id" property="adminId" />
         <result column="name" property="name" />
@@ -14,5 +14,16 @@
     <sql id="Base_Column_List">
         id, admin_id, name, role_id
     </sql>
+
+
+<resultMap id="adminMap" type="com.soft1851.music.admin.domain.entity.SysRole">
+    <result property="roleId" column="role_id" javaType="java.lang.Integer"/>
+    <result property="roleName" column="role_name" javaType="java.lang.String"/>
+</resultMap>
+    <select id="selectRole" resultMap="adminMap">
+        SELECT b.role_id ,b.role_name FROM
+            role_admin a LEFT JOIN sys_role b
+        ON a.role_id=b.role_id =1 WHERE a.admin_id=#{id}
+    </select>
 
 </mapper>

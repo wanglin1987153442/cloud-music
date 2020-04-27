@@ -24,20 +24,19 @@ public enum ResultCode {
     USER_ACCOUNT_NOT_EXIST(200005,"账号不存在"),
     USER_LOGIN_FAILURE(20006,"登录失效"),
     USER_STATUS_ISNO(20007,"账号已被禁用"),
-    USER_ACCOUNT_NULL(20008,"账号为空"),
+    USER_ACCOUNT_NULL(20008, "账号为空"),
 
     /*token错误*/
-    TOKEN_NOT_EXIT(200008,"TOKEN未添加"),
-    TOKEN_ERRO(200009,"TOKEN错误"),
-    TOKEN_TIME_ERRO(20010,"TOKEN已超时"),
-    TOKEN_STATUS_ERRO(20011,"TOKEN状态被禁用"),
+    TOKEN_NOT_EXIT(200008, "TOKEN未添加"),
+    TOKEN_ERRO(200009, "TOKEN错误"),
+    TOKEN_TIME_ERRO(20010, "TOKEN已超时"),
+    TOKEN_STATUS_ERRO(20011, "TOKEN状态被禁用"),
 
-//验证码
+    //验证码
     USER_VERIFY_CODE_ERROR(20004, "验证码错误"),
-    USER_CODE_TIMEOUT(20005, "验证码失效"),
+    USER_CODE_TIMEOUT(20005, "验证码失效,请重新获取"),
 
-
-
+    TOKEN_NOT_VERIFY(20006,"TOKEN不合法"),
     /* 参数错误：10001-19999 */
     PARAM_IS_INVALID(200001, "参数无效"),
     PARAM_IS_BLANK(200002, "参数为空"),

@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.Random;
+/**
+ * kaptcha 自定义样式
+ */
 
 /**
  * 自定义样式实现类

@@ -4,6 +4,7 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.soft1851.music.admin.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,6 +25,7 @@ import java.io.IOException;
  */
 @RestController
 @Slf4j
+@RequestMapping("/api")
 public class CapthchaController {
     @Resource
     private DefaultKaptcha defaultKaptcha;
@@ -38,8 +40,7 @@ public class CapthchaController {
         HttpServletResponse response = sra.getResponse();
         String text = defaultKaptcha.createText();
         log.info(text);
-
-//生成图片通过response输出到客户端
+        //生成图片通过response输出到客户端
         BufferedImage image = defaultKaptcha.createImage(text);
         assert response != null;
         response.setContentType("image/jpeg");

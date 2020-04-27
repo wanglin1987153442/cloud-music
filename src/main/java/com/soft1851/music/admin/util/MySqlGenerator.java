@@ -1,4 +1,4 @@
-package com.soft1851.music.admin.config;
+package com.soft1851.music.admin.util;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;

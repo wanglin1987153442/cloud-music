@@ -1,6 +1,6 @@
 package com.soft1851.music.admin.service;
 
-import com.soft1851.music.admin.entity.SysMenu;
+import com.soft1851.music.admin.domain.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-04-21
  */
 public interface SysMenuService extends IService<SysMenu> {
+
 
 }
