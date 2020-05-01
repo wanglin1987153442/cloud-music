@@ -1,8 +1,10 @@
 package com.soft1851.music.admin.util;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * @author wl
@@ -11,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2020/4/27
  * @Version 1.0
  */
+@Component
 public class ThreadPool {
 /**
  * 异步线程
@@ -27,6 +30,12 @@ public class ThreadPool {
     public static ThreadPoolExecutor getExecutor() {
         return executor;
     }
+
+
+
+
+
+
 
 }
 

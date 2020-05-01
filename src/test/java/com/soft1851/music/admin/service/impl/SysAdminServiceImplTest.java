@@ -20,7 +20,7 @@ private SysAdminService sysAdminService;
 private RoleAdminMapper roleAdminMapper;
     @Test
     void login() {
-        LoginDto loginDto =LoginDto.builder().name("mqxu").password("123456").build();
+        LoginDto loginDto =LoginDto.builder().password("123456").build();
         sysAdminService.login(loginDto);
     }
     @Test

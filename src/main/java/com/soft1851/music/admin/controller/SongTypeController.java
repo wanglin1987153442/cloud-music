@@ -2,11 +2,14 @@ package com.soft1851.music.admin.controller;
 
 
 import com.soft1851.music.admin.service.SongTypeService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.Map;
 
 /**
@@ -19,12 +22,13 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/songType")
+@Validated
 public class SongTypeController {
     @Resource
     private SongTypeService songTypeService;
 
     @GetMapping("/Type")
-    public Map<String, Object> getAlltype(Integer num) {
+    public Map<String, Object> getAlltype(@Valid @NotBlank(message ="页数不能为空") Integer num) {
         return songTypeService.selectAllType(num);
     }
 }

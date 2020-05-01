@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.soft1851.music.admin.common.Result;
 import com.soft1851.music.admin.common.ResultCode;
 import com.soft1851.music.admin.domain.dto.LoginDto;
+import com.soft1851.music.admin.domain.dto.UserDto;
 import com.soft1851.music.admin.domain.entity.SysAdmin;
 import com.soft1851.music.admin.domain.entity.SysRole;
 import com.soft1851.music.admin.mapper.RoleAdminMapper;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -83,6 +85,25 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
         return Result.failure(ResultCode.USER_NOT_EXIST);
 
 
+    }
+
+    @Override
+    public Result updateInfomation(UserDto userDto) {
+        int n=0;
+        if (userDto.getPassword()!=null) {
+            String ps = Md5Util.getMd5(userDto.getPassword(), true, 32);
+            userDto.setPassword(ps);
+        }
+        try {
+            n=  sysAdminMapper.updateUserInformation(userDto);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+               if (n!=0){
+                   return Result.success();
+               }
+               return Result.failure(ResultCode.DATA_IS_WRONG);
     }
 
 

@@ -3,6 +3,7 @@ package com.soft1851.music.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.soft1851.music.admin.common.Result;
 import com.soft1851.music.admin.domain.dto.LoginDto;
+import com.soft1851.music.admin.domain.dto.UserDto;
 import com.soft1851.music.admin.domain.entity.SysAdmin;
 
 /**
@@ -21,4 +22,7 @@ public interface SysAdminService extends IService<SysAdmin> {
      * @return
      */
     public Result login(LoginDto loginDto);
+
+
+   public Result updateInfomation(UserDto userDto);
 }

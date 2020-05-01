@@ -3,6 +3,7 @@ package com.soft1851.music.admin.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.springframework.validation.ObjectError;
 
 import java.io.Serializable;
 
@@ -30,6 +31,11 @@ public class Result implements Serializable {
     public Result(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
+    }
+    public Result(Integer code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.data=data;
     }
 
     public static Result success() {
