@@ -6,8 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -21,6 +22,10 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @TableName("song_list")
 public class SongList extends Model<SongList> {
 

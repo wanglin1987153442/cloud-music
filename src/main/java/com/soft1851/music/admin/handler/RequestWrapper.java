@@ -38,20 +38,20 @@ public class RequestWrapper extends HttpServletRequestWrapper {
         } catch (IOException ex) {
 
         } finally {
-//            if (inputStream != null) {
-//                try {
-//                    inputStream.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            if (bufferedReader != null) {
-//                try {
-//                    bufferedReader.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         body = stringBuilder.toString();
     }

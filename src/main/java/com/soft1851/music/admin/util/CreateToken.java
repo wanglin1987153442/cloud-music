@@ -55,7 +55,7 @@ public class CreateToken {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        System.out.println(token);
+
         return token;
     }
 

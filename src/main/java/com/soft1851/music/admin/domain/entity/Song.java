@@ -32,7 +32,7 @@ public class Song extends Model<Song> {
     /**
      * 歌曲id
      */
-    @TableId("song_id")
+    @TableField("song_id")
     @ExcelVoAttribute(name = "歌曲ID", column = 0)
     private String songId;
 

@@ -4,21 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * @author wl
- * @ClassNameuserDto
+ * @ClassNamesongDto
  * @Description TODO
- * @Date 2020/5/1
+ * @Date 2020/5/7
  * @Version 1.0
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-    private  String avatar;
-    private  String password;
-    private  String num;
-    private List<String> songListIds;
+public class SongDto {
+
+    private  String songname;
+    private String singer;
+    private  String url;
+    private String thumbnail;
 }

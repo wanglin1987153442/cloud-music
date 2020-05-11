@@ -57,16 +57,12 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
         if (user != null) {
             if (user.getStatus().equals(1)) {
                 if (user.getPassword().equals(Md5Util.getMd5(loginDto.getPassword(), true, 32))) {
-//                    ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//                    assert sra != null;
-//                    HttpServletResponse response = sra.getResponse();
-//                    response.setHeader("Authorization", token);
                     List<SysRole> sysRole = roleAdminMapper.selectRole(user.getId());
                         String token = CreateToken.getToken(user.getName(), JSONObject.toJSONString(sysRole),user.getSalt());
                         Map<String, Object> map = new TreeMap<>();
                         map.put("userId", user.getId());
                         map.put("username", user.getName());
-                        map.put("awatar", user.getAvatar());
+                        map.put("avatar", user.getAvatar());
                         map.put("token", token);
                     for (SysRole sysRole1 : sysRole) {
                         map.put("userRole", sysRole);
@@ -88,14 +84,46 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
     }
 
     @Override
+    public Result loginByGithub(String login) {
+        QueryWrapper<SysAdmin> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("login", login);
+        SysAdmin user = sysAdminMapper.selectOne(queryWrapper);
+        List<String> roleId = null;
+        if (user != null) {
+            if (user.getStatus().equals(1)) {
+//                    ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//                    assert sra != null;
+//                    HttpServletResponse response = sra.getResponse();
+//                    response.setHeader("Authorization", token);
+                List<SysRole> sysRole = roleAdminMapper.selectRole(user.getId());
+                String token = CreateToken.getToken(user.getName(), JSONObject.toJSONString(sysRole), user.getSalt());
+                Map<String, Object> map = new TreeMap<>();
+                map.put("userId", user.getId());
+                map.put("username", user.getName());
+                map.put("avatar", user.getAvatar());
+                map.put("token", token);
+                for (SysRole sysRole1 : sysRole) {
+                    map.put("userRole", sysRole);
+                }
+                return Result.success(map);
+            } else {
+                return Result.failure(ResultCode.USER_STATUS_ISNO);
+            }
+
+
+        }
+        return Result.failure(ResultCode.USER_NOT_EXIST);
+    }
+
+    @Override
     public Result updateInfomation(UserDto userDto) {
-        int n=0;
-        if (userDto.getPassword()!=null) {
+        int n = 0;
+        if (userDto.getPassword() != null) {
             String ps = Md5Util.getMd5(userDto.getPassword(), true, 32);
             userDto.setPassword(ps);
         }
         try {
-            n=  sysAdminMapper.updateUserInformation(userDto);
+            n = sysAdminMapper.updateUserInformation(userDto);
 
         } catch (SQLException e) {
             e.printStackTrace();

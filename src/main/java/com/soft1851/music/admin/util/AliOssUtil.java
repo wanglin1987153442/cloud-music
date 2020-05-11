@@ -45,29 +45,24 @@ public class AliOssUtil {
         return url;
     }
 
-    public static List<String> upload(MultipartFile[] sourceFiles) {
-        List<String> tempFiles = new ArrayList<>(10);
-        for (MultipartFile sourceFile : sourceFiles) {
-            System.out.println(sourceFile);
-            // 获取文件名
-            String fileName = sourceFile.getOriginalFilename();
-            //uuid生成主文件名
-            String prefix = UUID.randomUUID().toString();
-            assert fileName != null;
-            //源文件的扩展名
-            String suffix = fileName.substring(fileName.lastIndexOf("."));
-            //创建File类型的临时文件
-            File tempFile;
-            try {
-                tempFile = File.createTempFile(prefix, suffix);
-                System.out.println(tempFile);
-                // 将MultipartFile转换成File
-                sourceFile.transferTo(tempFile);
-                tempFiles.add(upload(tempFile));
-            } catch (IOException e) {
-                log.error(e.getMessage());
-            }
+    public static String upload(MultipartFile sourceFile) {
+        // 获取文件名
+        String fileName = sourceFile.getOriginalFilename();
+        //uuid生成主文件名
+        String prefix = UUID.randomUUID().toString();
+        assert fileName != null;
+        //源文件的扩展名
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        //创建File类型的临时文件
+        File tempFile = null;
+        try {
+            tempFile = File.createTempFile(prefix, suffix);
+            // 将MultipartFile转换成File
+            sourceFile.transferTo(tempFile);
+        } catch (IOException e) {
+            log.error(e.getMessage());
         }
-        return tempFiles;
+        assert tempFile != null;
+        return upload(tempFile);
     }
 }

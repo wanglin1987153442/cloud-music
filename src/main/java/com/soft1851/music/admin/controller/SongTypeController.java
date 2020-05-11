@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Map;
 
 /**
@@ -22,13 +23,13 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/songType")
-@Validated
+
 public class SongTypeController {
     @Resource
     private SongTypeService songTypeService;
 
     @GetMapping("/Type")
-    public Map<String, Object> getAlltype(@Valid @NotBlank(message ="页数不能为空") Integer num) {
+    public Map<String, Object> getAlltype( Integer num) {
         return songTypeService.selectAllType(num);
     }
 }

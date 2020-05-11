@@ -1,7 +1,10 @@
 package com.soft1851.music.admin.controller;
 
 
+import com.soft1851.music.admin.common.Result;
+import com.soft1851.music.admin.domain.dto.UserDto;
 import com.soft1851.music.admin.domain.entity.SongList;
+import com.soft1851.music.admin.domain.vo.songListVo;
 import com.soft1851.music.admin.service.SongListService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +34,30 @@ public class SongListController {
 
 
     @GetMapping("/serach")
-    public List<SongList> blurSelect(String field){
+    public List<SongList> blurSelect(String field) {
         return songListService.blurSelect(field);
     }
+
+
     @PostMapping("/page")
-    public Map<String, Object> getSongListByPage(@Param("page") Long page){
+    public Map<String, Object> getSongListByPage(@Param("page") Long page) {
         return songListService.getByPage(page);
     }
 
+
+    @PutMapping("/deleteflag")
+    public Result deleteflagBySongListType(@RequestBody UserDto userDto) {
+        return songListService.deleteSongType(userDto.getSongListIds());
+    }
+
+
+    @GetMapping("fornt")
+    public List<SongList> getFrontSongList() {
+        return songListService.getFrontList();
+    }
+
+    @GetMapping("frontlike")
+    public  List<songListVo> getFrontSongListLike() {
+        return songListService.getFrontLike();
+    }
 }

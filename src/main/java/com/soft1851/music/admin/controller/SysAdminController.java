@@ -7,11 +7,9 @@ import com.soft1851.music.admin.domain.dto.LoginDto;
 import com.soft1851.music.admin.domain.dto.UserDto;
 import com.soft1851.music.admin.service.SysAdminService;
 import com.soft1851.music.admin.util.AliOssUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -39,19 +37,29 @@ public class SysAdminController {
         return sysAdminService.login(loginDto);
     }
 
-    @PostMapping("information")
 
+    @PostMapping("/githubLogin")
+    public Result githubLogin(@Param("login") String login) {
+        return sysAdminService.loginByGithub(login);
+    }
+
+
+    @PostMapping("information")
     @ControllerWebLog(name = "验证码", isSaved = true)
     public Result updateInformation(@RequestBody @Valid UserDto userDto) {
         return sysAdminService.updateInfomation(userDto);
     }
 
 
-    @PostMapping("avatar")
-    public Result updateAvatar(@RequestBody @Valid UserDto userDto, MultipartFile[] file) {
-        List<String> upload = AliOssUtil.upload(file);
-        upload.forEach(System.out::println);
-        return null;
+    @PostMapping("/upload")
+    public Result uploadFile(@RequestParam("file") MultipartFile multipartFile, @RequestParam("num") String num) {
+        String url = AliOssUtil.upload(multipartFile);
+        UserDto userDto =new UserDto();
+        userDto.setAvatar(url);
+        userDto.setNum(num);
 
+        return sysAdminService.updateInfomation(userDto);
     }
+
+
 }

@@ -1,6 +1,8 @@
 package com.soft1851.music.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.soft1851.music.admin.common.Result;
+import com.soft1851.music.admin.domain.dto.SongDto;
 import com.soft1851.music.admin.domain.entity.Song;
 
 import java.util.Map;
@@ -14,11 +16,19 @@ import java.util.Map;
  * @since 2020-04-21
  */
 public interface SongService extends IService<Song> {
-   Map<String ,Object> getPage(Integer num);
+   Map<String, Object> getPage(Integer num);
 
 
    /**
     * 导出数据
     */
    void exportData();
+
+   /**
+    * 插入一首歌
+    *
+    * @param
+    * @return
+    */
+   Result insertSong( SongDto songDto);
 }

@@ -163,7 +163,7 @@ public class SnowFlake {
 
     //==============================Test=============================================
 
-    public Long getSnowFlake() {
+    public static Long getSnowFlake() {
         long start = System.currentTimeMillis();
         SnowFlake idWorker = new SnowFlake(1, 3);
         long id = idWorker.nextId();
@@ -175,15 +175,15 @@ public class SnowFlake {
      */
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-
-        SnowFlake idWorker = new SnowFlake(1, 3);
-        for (int i = 0; i < 50; i++) {
-            long id = idWorker.nextId();
-            System.out.println(Long.toBinaryString(id));
-            System.out.println(id);
-        }
-        long end = System.currentTimeMillis();
-        System.out.println(end - start);
+        System.out.println(SnowFlake.getSnowFlake());
+//        SnowFlake idWorker = new SnowFlake(1, 3);
+//        for (int i = 0; i < 50; i++) {
+//            long id = idWorker.nextId();
+//            System.out.println(Long.toBinaryString(id));
+//            System.out.println(id);
+//        }
+//        long end = System.currentTimeMillis();
+//        System.out.println(end - start);
 
     }
 }

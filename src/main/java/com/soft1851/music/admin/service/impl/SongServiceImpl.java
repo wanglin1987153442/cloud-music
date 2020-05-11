@@ -2,12 +2,15 @@ package com.soft1851.music.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.soft1851.music.admin.common.Result;
+import com.soft1851.music.admin.domain.dto.SongDto;
 import com.soft1851.music.admin.domain.entity.Song;
 import com.soft1851.music.admin.mapper.SongMapper;
 import com.soft1851.music.admin.service.SongService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.soft1851.music.admin.util.ExcelConsumer;
 import com.soft1851.music.admin.util.ExportDataAdapter;
+import com.soft1851.music.admin.util.SnowFlake;
 import com.soft1851.music.admin.util.ThreadPool;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Future;
 
 /**
  * <p>
@@ -76,6 +79,7 @@ private SongMapper songMapper;
         outputStream.close();
     }
 
+
     /**
      * 生产者生产数据
      *
@@ -83,6 +87,7 @@ private SongMapper songMapper;
      * @param latch
      */
     private void produceExportData(ExportDataAdapter<Song> exportDataAdapter, CountDownLatch latch) {
+
         List<Song> songs = songMapper.selectList(null);
 
         songs.forEach(exportDataAdapter::addData);
@@ -90,4 +95,30 @@ private SongMapper songMapper;
         //数据生产结束
         latch.countDown();
     }
+
+
+    @Override
+    public Result insertSong(SongDto songDto) {
+        Song song = new Song();
+        song.setSongId(String.valueOf(SnowFlake.getSnowFlake()));
+        song.setSongName(songDto.getSongname());
+        song.setSortId("0");
+        song.setSinger(songDto.getSinger());
+        song.setDuration("04:48");
+        song.setThumbnail(songDto.getThumbnail());
+        song.setUrl(songDto.getUrl());
+        song.setLyric(null);
+        song.setCommentCount(0);
+        song.setLikeCount(0);
+        song.setDeleteFlag("0");
+        song.setUpdateTime(LocalDateTime.now());
+        song.setCreateTime(LocalDateTime.now());
+        int insert = songMapper.insert(song);
+        if (insert != 0) {
+            return Result.success();
+        }
+
+        return null;
+    }
+
 }

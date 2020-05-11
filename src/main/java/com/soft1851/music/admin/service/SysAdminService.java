@@ -23,6 +23,16 @@ public interface SysAdminService extends IService<SysAdmin> {
      */
     public Result login(LoginDto loginDto);
 
+    /**
+     * github登陆
+     *
+     * @param login
+     * @return
+     */
+    public Result loginByGithub(String login);
 
-   public Result updateInfomation(UserDto userDto);
+
+
+
+    public Result updateInfomation(UserDto userDto);
 }
